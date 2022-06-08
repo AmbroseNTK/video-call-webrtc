@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "simplechat-dc456"
+  },
+  "targets": {
+    "simplechat-dc456": {
+      "hosting": {
+        "video-call-webrtc": [
+          "simplechat-dc456"
+        ]
+      }
+    }
   }
 }

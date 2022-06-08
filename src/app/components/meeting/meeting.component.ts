@@ -1,4 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Auth, authState, User } from '@angular/fire/auth';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   templateUrl: './meeting.component.html',
@@ -6,12 +8,15 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 })
 export class MeetingComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private auth: Auth, private router: Router) { }
 
   openedCamera = true;
   openedMic = true;
 
   mediaStream!: MediaStream;
+
+  calleeEmail: string = "";
+  caller!: User | null;
 
   @ViewChild('callerVideo') callerVideo!: ElementRef;
   @ViewChild('calleeVideo') calleeVideo!: ElementRef;
@@ -20,10 +25,26 @@ export class MeetingComponent implements OnInit, AfterViewInit {
   }
 
   async ngAfterViewInit(): Promise<void> {
-    console.log(this.callerVideo.nativeElement);
     await this.getMedia({
       video: true,
       // audio: true
+    });
+    this.route.queryParams.subscribe(params => {
+      this.calleeEmail = params['email'];
+      console.log(this.calleeEmail);
+      if (this.calleeEmail == "") {
+        this.router.navigate(['/join']);
+        this.closeCamera();
+      }
+    })
+    authState(this.auth).subscribe(user => {
+      if (user) {
+        this.caller = user;
+      }
+      else {
+        this.router.navigate(['/join']);
+        this.closeCamera();
+      }
     });
   }
 

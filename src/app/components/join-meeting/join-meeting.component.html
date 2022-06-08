@@ -3,11 +3,20 @@
 </span>
 <div class="join-form">
     <p style="font-size: 1.2rem; font-weight:bold;">Join new meeting with</p>
-    <input class="join-input" placeholder="Your friend email">
-    <button class="call-button">Call</button>
+    <input class="join-input" placeholder="Your friend email" [(ngModel)]="email">
+    <button class="call-button" (click)="call()">Call</button>
 </div>
 <div class="login-form">
-    <button class="login-button">
+    <div *ngIf="user"
+        style="background-color: #fff; border-radius:10px; padding:10px; display: flex; flex-direction: row; align-items: center;">
+        <img [src]="user.photoURL" style="width: 40px; height:40px;border-radius:100%;">
+        <span style="font-weight: bold;">{{user.displayName}}</span>
+        <button class="login-button" (click)="logout()">
+            Logout
+        </button>
+    </div>
+    <button *ngIf="!user" class="login-button" (click)="login()">
         Login with Google
     </button>
+
 </div>

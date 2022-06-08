@@ -103,6 +103,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "video-call-webrtc:build:production",
+            "firebaseProject": "simplechat-dc456",
+            "firebaseHostingSite": "simplechat-dc456"
+          }
         }
       }
     }
