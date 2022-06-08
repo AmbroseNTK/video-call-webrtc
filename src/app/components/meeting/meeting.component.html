@@ -1,0 +1,35 @@
+<div class="meeting-layout">
+    <header class="meeting-header">
+        <span>Video call: Nguyen Van Teo</span>
+    </header>
+    <main class="coral section">
+        <video #calleeVideo class="meeting-callee-video">
+
+        </video>
+        <video #callerVideo class="meeting-caller-video" autoplay muted>
+
+        </video>
+        <div class="meeting-toolbar">
+            <button class="meeting-button">
+                <span class="material-symbols-outlined" style="font-weight: bold;">
+                    mic
+                </span>
+            </button>
+            <button *ngIf="!openedCamera" class="meeting-button" (click)="openCamera()">
+                <span class="material-symbols-outlined" style="font-weight: bold;">
+                    videocam
+                </span>
+            </button>
+            <button *ngIf="openedCamera" class="meeting-button-off" (click)="closeCamera()">
+                <span class="material-symbols-outlined" style="font-weight: bold;">
+                    videocam_off
+                </span>
+            </button>
+            <button class="meeting-button">
+                <span class="material-symbols-outlined" style="font-weight: bold;">
+                    call_end
+                </span>
+            </button>
+        </div>
+    </main>
+</div>
